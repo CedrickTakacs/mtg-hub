@@ -2,49 +2,16 @@
 <html>
 <head>
   <title>Magic Card Search</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <!-- <div class="navbar">
-    <button class="navbar-button" onclick="toggleMenu()">&#9776;</button>
-    <div id="menu" class="menu">
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </div> -->
+  <h1>Magic Card Search</h1>
+  <div class="search-container">
+    <input type="text" id="cardName" placeholder="Enter card name">
+    <button onclick="searchCard()">Search</button>
   </div>
-  <div class="container">
-    <h1 class="title" onclick="refreshPage()">Magic Card Search</h1>
-    <div class="search-container">
-      <input type="text" id="cardNameInput" placeholder="Enter card name" onkeydown="handleKeyPress(event)">
-      <button onclick="searchCard()">Search</button>
-    </div>
-    <br>
-    <table id="cardDetails" class="card-table">
-      <thead>
-        <tr>
-          <th>Card Name</th>
-          <th>Image</th>
-          <th>Set</th>
-          <th>Type</th>
-          <th>Rarity</th>
-          <th>Mana Cost</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  
-<!-- Add this HTML markup wherever you want the modal to appear -->
-<div id="modal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img id="modalImage" class="modal-content" alt="">
-  <div id="modalCaption"></div>
-</div>
-</div>
-<footer class="footer">
-  <p>Version 0.1</p>
-</footer>
+  <div id="cardContainer" class="card-container"></div>
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,122 +1,73 @@
-function handleKeyPress(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      searchCard();
-    }
-  }
-
-  function refreshPage() {
-    location.reload();
-  }
-  
-    
-  function searchCard() {
-    var cardName = document.getElementById('cardNameInput').value;
-    var encodedCardName = encodeURIComponent(cardName);
-    var apiUrl = 'https://api.magicthegathering.io/v1/cards?name=' + encodedCardName;
+function searchCard() {
+    const cardName = document.getElementById('cardName').value;
+    const apiUrl = `https://api.scryfall.com/cards/search?q=${encodeURIComponent(cardName)}`;
   
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
-        var cards = data.cards;
-        if (cards.length > 0) {
-          var cardTable = document.getElementById('cardDetails');
-          var tbody = cardTable.getElementsByTagName('tbody')[0];
-          tbody.innerHTML = '';
-  
-          cards.forEach(card => {
-            if (card.imageUrl) {
-              var cardRow = createCardRow(card);
-              tbody.appendChild(cardRow);
-            }
-          });
+        if (data.object === 'error') {
+          displayErrorMessage(data.details || 'Card not found!');
         } else {
-          alert('Card not found!');
+          displayMultipleCards(data.data);
         }
       })
       .catch(error => {
-        console.log('Error:', error);
+        console.error('Error:', error);
+        displayErrorMessage('An error occurred. Please try again later.');
       });
   }
   
-
-  function createCardRow(card) {
-    if (!card.imageUrl) {
-      return null; // Skip card if image is missing
-    }
+  function displayMultipleCards(cards) {
+    const cardContainer = document.getElementById('cardContainer');
+    cardContainer.innerHTML = '';
   
-    var row = document.createElement('tr');
-  
-    var nameCell = document.createElement('td');
-    nameCell.textContent = card.name;
-    row.appendChild(nameCell);
-  
-    var imageCell = document.createElement('td');
-    var image = document.createElement('img');
-    image.src = card.imageUrl;
-    image.alt = card.name;
-    imageCell.appendChild(image);
-    row.appendChild(imageCell);
-  
-    var setCell = document.createElement('td');
-    setCell.textContent = card.set;
-    row.appendChild(setCell);
-  
-    var typeCell = document.createElement('td');
-    typeCell.textContent = card.type;
-    row.appendChild(typeCell);
-  
-    var rarityCell = document.createElement('td');
-    rarityCell.textContent = card.rarity;
-    row.appendChild(rarityCell);
-  
-    var manaCostCell = document.createElement('td');
-    manaCostCell.textContent = card.manaCost;
-    row.appendChild(manaCostCell);
-  
-    var priceCell = document.createElement('td');
-    if (card.prices && card.prices.usd) {
-      priceCell.textContent = '$' + card.prices.usd;
-    }
-    row.appendChild(priceCell);
-  
-    // Add click event listener to row to open modal
-    row.addEventListener('click', function() {
-      openModal(card.name, card.imageUrl);
+    cards.forEach(card => {
+      const cardDetails = createCardDetailsElement(card);
+      cardContainer.appendChild(cardDetails);
     });
-  
-    return row;
   }
-
-  var menu = document.getElementById('menu');
-  var navbarButton = document.getElementById('navbarButton');
   
-  navbarButton.addEventListener('click', function() {
-    toggleMenu();
-  });
+  function createCardDetailsElement(card) {
+    const cardDetails = document.createElement('div');
+    cardDetails.className = 'card-details';
   
-  menu.addEventListener('mouseleave', function() {
-    closeMenu();
-  });
+    const variationHTML = createVariationsHTML(card);
   
-  function toggleMenu() {
-    if (menu.style.display === 'block') {
-      closeMenu();
-    } else {
-      openMenu();
+    const price = card.prices.usd || 'N/A';
+  
+    cardDetails.innerHTML = `
+      <h2>${card.name}</h2>
+      <img src="${card.image_uris.normal}" alt="${card.name}">
+      <p><strong>Type:</strong> ${card.type_line}</p>
+      <p><strong>Rarity:</strong> ${card.rarity}</p>
+      <p><strong>Set:</strong> ${card.set_name}</p>
+      <p><strong>Artist:</strong> ${card.artist}</p>
+      <p><strong>Price:</strong> $${price}</p>
+      ${variationHTML}
+    `;
+  
+    return cardDetails;
+  }
+  
+  function createVariationsHTML(card) {
+    let variationHTML = '';
+  
+    if (card.all_parts) {
+      variationHTML += '<p><strong>Variations:</strong></p>';
+      variationHTML += '<ul>';
+  
+      card.all_parts.forEach(variation => {
+        variationHTML += `<li>${variation.name}</li>`;
+      });
+  
+      variationHTML += '</ul>';
     }
+  
+    return variationHTML;
   }
   
-  function openMenu() {
-    menu.style.display = 'block';
+  function displayErrorMessage(message) {
+    const cardContainer = document.getElementById('cardContainer');
+    cardContainer.innerHTML = `<p class="error">${message}</p>`;
   }
-  
-  function closeMenu() {
-    menu.style.display = 'none';
-  }
-  
-  
-
-  
-  
   
