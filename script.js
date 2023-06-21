@@ -33,7 +33,8 @@ function searchCard() {
   
     const variationHTML = createVariationsHTML(card);
   
-    const price = card.prices.usd || 'N/A';
+    const normalPrice = card.prices.usd || 'N/A';
+    const foilPrice = card.prices.usd_foil || 'N/A';
   
     cardDetails.innerHTML = `
       <h2>${card.name}</h2>
@@ -42,12 +43,13 @@ function searchCard() {
       <p><strong>Rarity:</strong> ${card.rarity}</p>
       <p><strong>Set:</strong> ${card.set_name}</p>
       <p><strong>Artist:</strong> ${card.artist}</p>
-      <p><strong>Price:</strong> $${price}</p>
+      <p><strong>Price:</strong> $${normalPrice} / $${foilPrice} (Foil)</p>
       ${variationHTML}
     `;
   
     return cardDetails;
   }
+  
   
   function createVariationsHTML(card) {
     let variationHTML = '';
