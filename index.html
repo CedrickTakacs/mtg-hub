@@ -5,8 +5,16 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+  <!-- <div class="navbar">
+    <button class="navbar-button" onclick="toggleMenu()">&#9776;</button>
+    <div id="menu" class="menu">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div> -->
+  </div>
   <div class="container">
-    <h1>Magic Card Search</h1>
+    <h1 class="title" onclick="refreshPage()">Magic Card Search</h1>
     <div class="search-container">
       <input type="text" id="cardNameInput" placeholder="Enter card name" onkeydown="handleKeyPress(event)">
       <button onclick="searchCard()">Search</button>
@@ -34,8 +42,9 @@
   <div id="modalCaption"></div>
 </div>
 </div>
-
-
+<footer class="footer">
+  <p>Version 0.1</p>
+</footer>
   <script src="script.js"></script>
 </body>
 </html>

@@ -4,6 +4,11 @@ function handleKeyPress(event) {
       searchCard();
     }
   }
+
+  function refreshPage() {
+    location.reload();
+  }
+  
     
   function searchCard() {
     var cardName = document.getElementById('cardNameInput').value;
@@ -82,6 +87,34 @@ function handleKeyPress(event) {
   
     return row;
   }
+
+  var menu = document.getElementById('menu');
+  var navbarButton = document.getElementById('navbarButton');
+  
+  navbarButton.addEventListener('click', function() {
+    toggleMenu();
+  });
+  
+  menu.addEventListener('mouseleave', function() {
+    closeMenu();
+  });
+  
+  function toggleMenu() {
+    if (menu.style.display === 'block') {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+  
+  function openMenu() {
+    menu.style.display = 'block';
+  }
+  
+  function closeMenu() {
+    menu.style.display = 'none';
+  }
+  
   
 
   
