@@ -108,3 +108,5 @@ function searchCard() {
     cardContainer.innerHTML = `<p class="error">${message}</p>`;
   }
   
+  
+  

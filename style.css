@@ -2,6 +2,30 @@ body {
   font-family: Arial, sans-serif;
 }
 
+nav {
+  background-color: #333;
+  border-radius: 7px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.navbar a:hover {
+  background-color: #555;
+}
+
+.navbar a.active {
+  background-color: #777;
+}
+
 h1 {
   text-align: center;
 }
@@ -56,3 +80,11 @@ button {
 .error {
   color: red;
 }
+
+.footer {
+  margin-top: 35%;
+  color: #818181;
+  text-align: center;
+  padding: 10px 0;
+}
+
