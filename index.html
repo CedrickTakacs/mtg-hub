@@ -7,12 +7,35 @@
 <body>
   <div class="container">
     <h1>Magic Card Search</h1>
-    <input type="text" id="cardNameInput" placeholder="Enter card name" onkeydown="handleKeyPress(event)">
-    <button onclick="searchCard()">Search</button>
-    <div id="cardDetails"></div>
-  </div>
-<p align="center">v0.0.1</p>
+    <div class="search-container">
+      <input type="text" id="cardNameInput" placeholder="Enter card name" onkeydown="handleKeyPress(event)">
+      <button onclick="searchCard()">Search</button>
+    </div>
+    <br>
+    <table id="cardDetails" class="card-table">
+      <thead>
+        <tr>
+          <th>Card Name</th>
+          <th>Image</th>
+          <th>Set</th>
+          <th>Type</th>
+          <th>Rarity</th>
+          <th>Mana Cost</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  
+<!-- Add this HTML markup wherever you want the modal to appear -->
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img id="modalImage" class="modal-content" alt="">
+  <div id="modalCaption"></div>
+</div>
+</div>
+
+
   <script src="script.js"></script>
 </body>
 </html>
-

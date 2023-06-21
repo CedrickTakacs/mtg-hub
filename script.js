@@ -5,7 +5,7 @@ function handleKeyPress(event) {
     }
   }
     
-function searchCard() {
+  function searchCard() {
     var cardName = document.getElementById('cardNameInput').value;
     var encodedCardName = encodeURIComponent(cardName);
     var apiUrl = 'https://api.magicthegathering.io/v1/cards?name=' + encodedCardName;
@@ -15,24 +15,14 @@ function searchCard() {
       .then(data => {
         var cards = data.cards;
         if (cards.length > 0) {
-          var cardDetails = document.getElementById('cardDetails');
-          cardDetails.innerHTML = '';
+          var cardTable = document.getElementById('cardDetails');
+          var tbody = cardTable.getElementsByTagName('tbody')[0];
+          tbody.innerHTML = '';
   
           cards.forEach(card => {
-            var cardInfo = `
-              <h2>${card.name}</h2>
-              <img src="${card.imageUrl}" alt="${card.name}" />
-              <p>Set: ${card.set}</p>
-              <p>Type: ${card.type}</p>
-              <p>Rarity: ${card.rarity}</p>
-              <p>Mana Cost: ${card.manaCost}</p>
-              <p>Price: <span id="cardPrice-${card.id}">Loading...</span></p>
-            `;
-  
-            cardDetails.innerHTML += cardInfo;
-  
-            if (card.prices && card.prices.usd) {
-              fetchCardPrice(card.id, card.prices.usd);
+            if (card.imageUrl) {
+              var cardRow = createCardRow(card);
+              tbody.appendChild(cardRow);
             }
           });
         } else {
@@ -44,11 +34,56 @@ function searchCard() {
       });
   }
   
-  function fetchCardPrice(cardId, cardPrice) {
-    // Replace this with your own logic to fetch the latest card price
-    // You can use another API or a database to retrieve the price
-    // For demonstration purposes, we'll simply display the provided price
-    var cardPriceElement = document.getElementById('cardPrice-' + cardId);
-    cardPriceElement.textContent = '$' + cardPrice;
+
+  function createCardRow(card) {
+    if (!card.imageUrl) {
+      return null; // Skip card if image is missing
+    }
+  
+    var row = document.createElement('tr');
+  
+    var nameCell = document.createElement('td');
+    nameCell.textContent = card.name;
+    row.appendChild(nameCell);
+  
+    var imageCell = document.createElement('td');
+    var image = document.createElement('img');
+    image.src = card.imageUrl;
+    image.alt = card.name;
+    imageCell.appendChild(image);
+    row.appendChild(imageCell);
+  
+    var setCell = document.createElement('td');
+    setCell.textContent = card.set;
+    row.appendChild(setCell);
+  
+    var typeCell = document.createElement('td');
+    typeCell.textContent = card.type;
+    row.appendChild(typeCell);
+  
+    var rarityCell = document.createElement('td');
+    rarityCell.textContent = card.rarity;
+    row.appendChild(rarityCell);
+  
+    var manaCostCell = document.createElement('td');
+    manaCostCell.textContent = card.manaCost;
+    row.appendChild(manaCostCell);
+  
+    var priceCell = document.createElement('td');
+    if (card.prices && card.prices.usd) {
+      priceCell.textContent = '$' + card.prices.usd;
+    }
+    row.appendChild(priceCell);
+  
+    // Add click event listener to row to open modal
+    row.addEventListener('click', function() {
+      openModal(card.name, card.imageUrl);
+    });
+  
+    return row;
   }
+  
+
+  
+  
   
