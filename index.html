@@ -7,7 +7,7 @@
 <body>
   <div class="container">
     <h1>Magic Card Search</h1>
-    <input type="text" id="cardNameInput" placeholder="Enter card name">
+    <input type="text" id="cardNameInput" placeholder="Enter card name" onkeydown="handleKeyPress(event)">
     <button onclick="searchCard()">Search</button>
     <div id="cardDetails"></div>
   </div>
@@ -15,3 +15,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
