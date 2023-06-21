@@ -75,7 +75,7 @@ function searchCard() {
               <p><strong>Set:</strong> ${card.set_name}</p>
               <p><strong>Artist:</strong> ${card.artist}</p>
               <p><strong>Price:</strong> $${normalPriceUSD} USD / ${normalPriceCAD}</p>
-              <p><strong>Price Foil:</strong> ${foilPriceUSD} USD / ${foilPriceCAD})</p>
+              <p><strong>Price Foil:</strong> ${foilPriceUSD} USD / ${foilPriceCAD}</p>
               ${variationHTML}
             `;
           });
