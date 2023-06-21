@@ -6,13 +6,13 @@
 </head>
 <body>
   <div id="navbarPlaceholder"></div>
-
+  <br>
   <h1>Magic Card Search</h1>
   <div class="search-container">
     <input type="text" id="cardName" placeholder="Enter card name">
     <button onclick="searchCard()">Search</button>
   </div>
-  <div align="center" class="mtg-beginer"><a href="mtgInfo.html">How to play MTG ?</a></div>
+ 
   <div id="cardContainer" class="card-container"></div>
 
   <div id="footerPlaceholder"></div>
@@ -34,6 +34,7 @@
         const footerPlaceholder = document.getElementById('footerPlaceholder');
         footerPlaceholder.innerHTML = footerHtml;
       });
+      
   </script>
 </body>
 </html>

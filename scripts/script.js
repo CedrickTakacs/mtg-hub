@@ -1,22 +1,32 @@
 function searchCard() {
-    const cardName = document.getElementById('cardName').value;
-    const apiUrl = `https://api.scryfall.com/cards/search?q=${encodeURIComponent(cardName)}`;
-  
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        if (data.object === 'error') {
-          displayErrorMessage(data.details || 'Card not found!');
-        } else {
-          displayMultipleCards(data.data);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        displayErrorMessage('An error occurred. Please try again later.');
-      });
+  const cardNameInput = document.getElementById('cardName');
+  const cardName = cardNameInput.value;
+  const apiUrl = `https://api.scryfall.com/cards/search?q=${encodeURIComponent(cardName)}`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.object === 'error') {
+        displayErrorMessage(data.details || 'Card not found!');
+      } else {
+        displayMultipleCards(data.data);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      displayErrorMessage('An error occurred. Please try again later.');
+    });
+}
+
+const cardNameInput = document.getElementById('cardName');
+cardNameInput.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    searchCard();
   }
-  
+});
+
+
   function displayMultipleCards(cards) {
     const cardContainer = document.getElementById('cardContainer');
     cardContainer.innerHTML = '';
@@ -107,6 +117,5 @@ function searchCard() {
     const cardContainer = document.getElementById('cardContainer');
     cardContainer.innerHTML = `<p class="error">${message}</p>`;
   }
-  
   
   
