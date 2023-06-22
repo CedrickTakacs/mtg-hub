@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pokémon Card Search</title>
+  <link rel="stylesheet" type="text/css" href="styles/pokemonStyles.css">
+</head>
+<body>
+    <div id="navbarPlaceholder"></div>
+  <h1>Pokémon Card Search</h1>
+  <input type="text" id="searchInput" placeholder="Enter Pokémon name">
+  <p id="resultCount"></p>
+  <div id="cardContainer"></div>
+
+<div id="loadingContainer" style="display: none;">
+    <div class="loading"></div>
+  </div>
+
+  <script src="scripts/pokemonTCG.js"></script>
+  <script>
+    // Fetch and insert the navbar HTML
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(navbarHtml => {
+        const navbarPlaceholder = document.getElementById('navbarPlaceholder');
+        navbarPlaceholder.innerHTML = navbarHtml;
+      });
+  </script>
+</body>
+</html>
+
